@@ -64,6 +64,14 @@
    width: 16em;
  }
 
+ input[type='text']:disabled,
+ input[type='text'][disabled] {
+   border: 1px solid #999999;
+   background-color: #cccccc;
+   color: #666666;
+   cursor: not-allowed;
+ }
+
  input[type='submit'] {
    border: solid 1px transparent;
    background: #0B77DB;
@@ -126,6 +134,11 @@
  .label {
    width: 10em;
    display: inline-block;
+ }
+
+ .message {
+   display: inline-block;
+   color: green;
  }
 
  /*

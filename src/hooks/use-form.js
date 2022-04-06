@@ -8,14 +8,16 @@ const useForm = (validateInput, type) => {
   const [checkboxValues, setCheckboxValues] = useState({})
 
   let valueIsValid = false
+  let hasError = false
+
   if (type === 'input') {
     valueIsValid = inputValue.trim() !== "" && validateInput(inputValue);
+    hasError = !valueIsValid && isTouched;
   }
   if (type === 'checkboxes') {
     valueIsValid = validateInput(checkboxValues);
-
+    hasError = !valueIsValid
   }
-  const hasError = !valueIsValid && isTouched;
 
   const inputChangeHandler = (event) => {
     setInputValue(event.target.value);
@@ -33,8 +35,13 @@ const useForm = (validateInput, type) => {
   };
 
   const reset = () => {
-    setInputValue('')
-    setIsTouched(false)
+    if (type === 'input') {
+      setInputValue('')
+      setIsTouched(false)
+    }
+    if (type === 'checkboxes') {
+      setCheckboxValues({})
+    }
   }
 
   return {

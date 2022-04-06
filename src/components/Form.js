@@ -1,5 +1,6 @@
-import { useState, React } from "react";
+import React from "react";
 import useForm from "../hooks/use-form";
+import Message from "./Message";
 
 const validateEmail = (email) => {
   const mailformat =
@@ -22,21 +23,17 @@ const validateAnimals = (animals) => {
       animalCount++;
     }
   }
-  console.log(animals, animalCount);
   return animalCount >= 2;
 };
 
-const Form = () => {
-  // const [animalValues, setAnimalValues] = useState({
-  //   isBear: false,
-  //   isSnake: false,
-  //   isTiger: false,
-  //   isDonkey: false,
-  // });
+const validateTigerType = (tigerType) => {
+  return tigerType !== null;
+};
 
+const Form = () => {
   const {
     value: emailInput,
-    isValid: enteredEmailIsValid,
+    isValid: emailIsValid,
     hasError: emailInputHasError,
     inputChangeHandler: emailInputChangeHandler,
     inputBlurHandler: emailInputBlurHandler,
@@ -45,7 +42,7 @@ const Form = () => {
 
   const {
     value: passwordInput,
-    isValid: enteredPasswordIsValid,
+    isValid: passwordIsValid,
     hasError: passwordInputHasError,
     inputChangeHandler: passwordInputChangeHandler,
     inputBlurHandler: passwordInputBlurHandler,
@@ -54,7 +51,7 @@ const Form = () => {
 
   const {
     value: colourInput,
-    isValid: enteredColourIsValid,
+    isValid: colourIsValid,
     hasError: colourInputHasError,
     inputBlurHandler: colourInputBlurHandler,
     inputChangeHandler: colourInputChangeHandler,
@@ -65,19 +62,27 @@ const Form = () => {
     checkboxValues: animalValues,
     isValid: animalsAreValid,
     hasError: animalInputHasError,
-    // inputChangeHandler: animalInputChangeHandler,
-    inputBlurHandler: animalInputBlurHandler,
     checkboxChangeHandler: animalInputChangeHandler,
     reset: resetAnimalInput,
   } = useForm(validateAnimals, "checkboxes");
 
+  const {
+    value: tigerTypeInput,
+    isValid: tigerTypeIsValid,
+    hasError: tigerTypeInputHasError,
+    inputChangeHandler: tigerTypeInputChangeHandler,
+    inputBlurHandler: tigerTypeInputBlurHandler,
+    reset: resetTigerTypeInput,
+  } = useForm(validateTigerType, "input");
+
   let formIsValid = false;
 
   if (
-    enteredEmailIsValid &&
-    enteredPasswordIsValid &&
-    enteredColourIsValid &&
-    animalsAreValid
+    emailIsValid &&
+    passwordIsValid &&
+    colourIsValid &&
+    animalsAreValid &&
+    tigerTypeIsValid
   ) {
     formIsValid = true;
   }
@@ -85,23 +90,19 @@ const Form = () => {
   const formSubmissionHandler = (event) => {
     event.preventDefault();
     if (formIsValid) {
-      console.log(emailInput, passwordInput, colourInput);
       console.log("Your form is valid!");
       resetEmailInput();
       resetPasswordInput();
       resetColourInput();
+      resetAnimalInput();
+      resetTigerTypeInput();
     }
   };
-
-  // const bearInputChangeHandler = (event) => {
-  //   setAnimalValues({ ...animalValues, isBear: event.target.checked });
-  //   console.log(event.target.value);
-  //   console.log(animalValues);
-  // };
 
   const emailInputClasses = emailInputHasError ? "error" : "";
   const passwordInputClasses = passwordInputHasError ? "error" : "";
   const colourInputClasses = colourInputHasError ? "error" : "";
+  const tigerTypeInputClasses = tigerTypeInputHasError ? "error" : "";
 
   return (
     <form method="post" action="" onSubmit={formSubmissionHandler}>
@@ -123,11 +124,7 @@ const Form = () => {
             value={emailInput}
           />
         </p>
-        {emailInputHasError && (
-          <p className="error">
-            <label htmlFor="field">Please enter a valid email address.</label>
-          </p>
-        )}
+
         <p className={passwordInputClasses}>
           <label className="label" htmlFor="password">
             Password
@@ -142,13 +139,6 @@ const Form = () => {
             value={passwordInput}
           />
         </p>
-        {passwordInputHasError && (
-          <p className="error">
-            <label htmlFor="field">
-              Please ensure your password is at least 8 characters.
-            </label>
-          </p>
-        )}
       </fieldset>
       <fieldset>
         <h3>Your animal</h3>
@@ -162,6 +152,7 @@ const Form = () => {
             value={colourInput}
             onChange={colourInputChangeHandler}
             onBlur={colourInputBlurHandler}
+            required
           >
             <option value="">Choose colour</option>
             <option value="blue">Blue</option>
@@ -171,11 +162,7 @@ const Form = () => {
             <option value="brown">Brown</option>
           </select>
         </p>
-        {colourInputHasError && (
-          <p className="error">
-            <label htmlFor="field">Please choose a colour.</label>
-          </p>
-        )}
+
         <p>
           <span className="label">Animal</span>
 
@@ -219,11 +206,19 @@ const Form = () => {
           />
           <label htmlFor="donkey">Donkey</label>
         </p>
-        <p>
+        <p className={tigerTypeInputClasses}>
           <label className="label" htmlFor="tiger_type">
             Type of tiger
           </label>
-          <input type="text" name="tiger_type" id="tiger_type" />
+          <input
+            type="text"
+            name="tiger_type"
+            id="tiger_type"
+            value={tigerTypeInput}
+            onChange={tigerTypeInputChangeHandler}
+            onBlur={tigerTypeInputBlurHandler}
+            disabled={!animalValues.tiger}
+          />
         </p>
       </fieldset>
       <fieldset>
@@ -231,6 +226,27 @@ const Form = () => {
           <input type="submit" value="Create account" disabled={!formIsValid} />
         </p>
       </fieldset>
+      {emailInputHasError && (
+        <Message message="Please enter a valid email address" classes="error" />
+      )}
+      {passwordInputHasError && (
+        <Message
+          message="Please ensure your password has at least 8 characters."
+          classes="error"
+        />
+      )}
+      {colourInputHasError && (
+        <Message message="Please choose a colour." classes="error" />
+      )}
+      {animalInputHasError && (
+        <Message message="Please select at least 2 animals." classes="error" />
+      )}
+      {animalValues.tiger && tigerTypeInputHasError && (
+        <Message message="Please choose a tiger type." classes="error" />
+      )}
+      {formIsValid && (
+        <Message message="Click create account to submit." classes="message" />
+      )}
     </form>
   );
 };
