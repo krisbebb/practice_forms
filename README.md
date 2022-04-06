@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# [Form validation problem](https://github.com/Inquisitive-Learners/form-validation-problem)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+We've created this problem to evaluate how developers tackle a real-world problem. If you've been assigned this problem you should spend around **2 hours** working on it. The last thing we want you to do is toil away for days on end!
 
-## Available Scripts
+If you've stumbled across this and want to work at [Inquisitive](https://www.inquisitive.com/) feel free to submit it too. We're always on the lookout for skilled developers.
 
-In the project directory, you can run:
+## Problem definition
 
-### `yarn start`
+Included in this repository is an [index.html](index.html) file that contains a form. Your task is to convert this form into a React application. You must ensure all of the following rules are met before the form is posted to the (in this case imaginary) server:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* `Email` must be a valid email address.
+* `Password` must be longer than 8 characters.
+* `Colour` must be selected.
+* At least two `Animals` must be chosen.
+* If `Tiger` is one of the chosen `Animal`s then `Type of tiger` is required to be a non-empty string.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Other requirements
 
-### `yarn test`
+If the form is submitted and an error occurs, the error element's parent should have a CSS `error` class added to it.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```html
+<p class="error">
+    <label for="field"></label>
+    <input id="field" type="text" value="foo">
+</p>
+```
 
-### `yarn build`
+## The cherry on the cake
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Beyond the problem statement, show us the consideration you have given to some or all of the following:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Accessibility
+* UX / usability
+* Browser support / compatibility
+* Testing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Submission
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Please fork our repository, build your solution and email a link to `rose.pollock@inquisitive.com`.
