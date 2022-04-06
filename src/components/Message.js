@@ -1,9 +1,9 @@
 import React from "react";
 
-function Message(props) {
+function Message({ classes, message }) {
   return (
-    <p className={props.classes}>
-      <label htmlFor="field">{props.message}</label>{" "}
+    <p className={classes}>
+      <label htmlFor="field">{message}</label>{" "}
     </p>
   );
 }
