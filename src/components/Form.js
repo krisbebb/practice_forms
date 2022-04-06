@@ -91,6 +91,7 @@ const Form = () => {
     event.preventDefault();
     if (formIsValid) {
       console.log("Your form is valid!");
+      alert("Form submitted successfully!");
       resetEmailInput();
       resetPasswordInput();
       resetColourInput();
@@ -171,7 +172,7 @@ const Form = () => {
             name="animal"
             value="bear"
             id="bear"
-            checked={animalValues.bear}
+            checked={animalValues.bear || false}
             onChange={animalInputChangeHandler}
           />
           <label htmlFor="bear">Bear</label>
@@ -181,7 +182,7 @@ const Form = () => {
             name="animal"
             value="tiger"
             id="tiger"
-            checked={animalValues.tiger}
+            checked={animalValues.tiger || false}
             onChange={animalInputChangeHandler}
           />
           <label htmlFor="tiger">Tiger</label>
@@ -191,7 +192,7 @@ const Form = () => {
             name="animal"
             value="snake"
             id="snake"
-            checked={animalValues.snake}
+            checked={animalValues.snake || false}
             onChange={animalInputChangeHandler}
           />
           <label htmlFor="snake">Snake</label>
@@ -201,7 +202,7 @@ const Form = () => {
             name="animal"
             value="donkey"
             id="donkey"
-            checked={animalValues.donkey}
+            checked={animalValues.donkey || false}
             onChange={animalInputChangeHandler}
           />
           <label htmlFor="donkey">Donkey</label>
