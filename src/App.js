@@ -4,7 +4,7 @@ import React from "react";
 import Form from "../src/components/Form";
 
 function App() {
-  return <Form / > ;
+  return <Form />;
 }
 
 export default App;
